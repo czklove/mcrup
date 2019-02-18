@@ -1,0 +1,54 @@
+/*banner*/
+.banner{margin-bottom: 12px;}
+.banner,.banner-slide,.banner-mid{width:100%;position: relative;overflow: hidden;}
+.banner-slide ul img{max-height: 420px;}
+.banner-slide ul{display: -webkit-box;display: -ms-flexbox;  display: -webkit-flex; display: flex;}
+.banner-slide ul li{-webkit-box-flex: 1;position: relative;}
+.indicator{position: absolute;bottom:10px;left:0;width: 100%;text-align: center;}
+.indicator a{width: 4px;height: 4px;border-radius: 2px;background: #ffffff;opacity: 0.5;margin: 0 3px;}
+.indicator a.active{width: 12px;opacity: 1;}
+.banner-mid{margin-bottom: 12px;}
+.banner-mid .indicator{bottom: 5px;}
+.banner-mid .indicator a{width: 8px;height: 8px;border-radius: 50%;margin: 0 5px;}
+.banner-mid .indicator a.active{background: #ae0e16;opacity: 0.7;}
+.banner-mid ul li{padding: 0 15px;}
+.banner-slide ul li span{position: absolute;top:50%;margin-top: -15px;left:0;width:100%;text-align:center;font-size: 14px;color: #ffffff;font-family: PingFangSC-Medium;}
+/*news*/
+.news{background: #ffffff;min-height: 20px;margin-bottom: 12px;}
+.news-title{border-bottom: 1px solid #dddddd;padding: 10px 0;}
+.news-title h2{color: #3c3c3c;font-size: 20px;border-left: 5px solid #ae0e16;padding-left:10px;line-height: 20px;font-family:"PingFangSC-Medium";}
+.news-tabs{margin-left: -62px;text-align: right;}
+.news-tabs a{background: #a7a7a7;margin-left: 2px;color: #ffffff;padding: 1px 3px;}
+.news-tabs a.active{background: #ae0e16;}
+.news-body ul li{padding: 15px 0;border-bottom: 1px solid #dddddd;position: relative;display: -webkit-box;}
+.news-body ul li img{border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;}
+.news-body .news-text a{font-size: 14px;margin-left: -15px;display: -webkit-box;-webkit-box-orient: vertical;height: 38px;overflow: hidden;}
+.news-body .news-text a:hover{color: #ae0e16;}
+.news-body p{font-size: 12px;color: #b0b0b0;display: -webkit-box;margin-left: -15px;max-height: 68px;overflow: hidden;}
+.news-body p span{color: #555555;margin-right: 10px;}
+.news-text{display: -webkit-box;-webkit-box-orient: vertical;-webkit-box-flex:1;-webkit-box-pack: justify;}
+.col-xs-8,.row{display: -webkit-box;}
+#main .look-more{font-size: 16px;color: #ccb18e;display: block;text-align: center;line-height: 50px;}
+/*新书速递*/
+@media screen and (max-width:360px){
+    .news-body p{max-height: 51px;}
+    .news-body p span{margin-right: 5px;}
+    .rec-info span{font-size: 11px;}
+}
+/*专题推荐*/
+.rec h2{font-size: 20px;text-align: center;line-height: 50px;border-bottom: 1px solid #dddddd;font-family:"PingFangSC-Medium";}
+.rec .rec-info{border-left: 1px solid #dddddd;padding:10px;text-align: center;border-bottom: 1px solid #dddddd;margin-right: 1px;}
+.rec .rec-info:first-child{margin-left: -1px;}
+.rec .rec-info:hover{background: #f5f5f5;}
+.rec .rec-info img{width: 70%;}
+.rec-info span{color: #666666;margin-top: 8px;display: block;}
+/*招聘信息*/
+.employ .news-body a{font-size: 16px;text-align: left;margin-right: -20px;}
+.employ .news-body strong{width: 100%;text-align: right;color: #ccb18e;font-weight: normal;display: inline-block;}
+.employ-con{padding: 10px 0;border-bottom: 1px solid #dddddd;}
+.employ .require{margin-right: -68px;}
+.employ .require a{font-size: 14px;color: #999999;padding-left: 20px;margin-right: 10px;background: url(../images/employ-icon-1.png) no-repeat left center;background-size:auto 70%;}
+.employ .require .year{background:url(../images/employ-icon-2.png)  no-repeat left center;background-size:auto 70%;}
+.employ .require .edu{background:url(../images/employ-icon-3.png)  no-repeat left center;background-size:auto 70%;}
+.employ span{font-size: 14px;color: #999999;width: 100%;text-align: right;}
+.emp-info-1{margin-bottom: 10px;}
