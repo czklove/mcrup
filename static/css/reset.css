@@ -43,6 +43,7 @@ img{max-width: 100%;height:auto;}
 .footer .teacher:hover{background: url(../images/icon-teacherser-h.png) no-repeat center top;background-size:auto 50%;}
 .footer .more:hover{background: url(../images/icon-more-h.png) no-repeat center top;background-size:auto 50%;}
 .footer .per:hover{background: url(../images/icon-account-h.png) no-repeat center top;background-size:auto 50%;}
+.footer .home:hover, .footer .home.active {background: url(../images/icon-home-h.png) no-repeat center top;background-size: auto 50%;}
 .more{position: relative;z-index: 111;}
 .more-con{position: absolute;top:-176px;left:50%;margin-left:-57px;background: url(../images/bg.png) no-repeat;background-size:100% auto;width: 114px;height: 176px;}
 .more-con a{font-size: 14px;color: #333333;width: 107px;text-align: center;line-height: 40px;border-bottom: 1px solid #dddddd;margin-left: -2px;}

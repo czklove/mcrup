@@ -1,9 +1,9 @@
 <template>
   <div class="footer">
     <ul class="foot-box clearfix">
-      <li class="home"><router-link to="/home"><span>首页</span></router-link></li>
-      <li class="book"><router-link to="/book"><span>图书</span></router-link></li>
-      <li class="teacher"><router-link to="/teacher"><span>服务</span></router-link></li>
+      <router-link to="/home" class="home active" tag="li"><span>首页</span></router-link>
+      <router-link to="/book" class="book" tag="li"><span>图书</span></router-link>
+      <router-link to="/teacher" class="teacher" tag="li"><span>服务</span></router-link>
       <li class="more" @click="showmore=!showmore">
         <span>更多</span>
         <div class="more-con" v-show="showmore">
@@ -13,7 +13,7 @@
           <a href="#" class="no-bord-btm">关于我们</a>
         </div>
       </li>
-      <li class="per"><span><router-link to="/percenter">个人中心</router-link></span></li>
+      <router-link to="/percenter" class="per" tag="li"><span>个人中心</span></router-link>
     </ul>
   </div>
 </template>
