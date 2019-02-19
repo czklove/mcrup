@@ -11,7 +11,7 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-4" v-for="(item,key) in list" :key="key">
-            <a href="#"><img :src="item.src" alt=""/><span>{{item.name}}</span></a>
+            <a href="#"><img :src="item.ImgUrl" alt=""/><span>{{item.Title}}</span></a>
           </div>
         </div>
       </div>
@@ -20,13 +20,29 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  props: ['list', 'mutilte'],
+  props: ['listtype', 'mutilte'],
   name: '',
   data () {
     return {
-
+      list: []
     }
+  },
+  created () {
+    // 使用vue-resource发送ajax请求
+    // 也可以使用axios发送ajax请求
+    const postdata = {flag: this.listtype, size: 3}
+    axios.post('/api/Book/BookExpress', postdata).then(
+      response => {
+        var result = response.data
+        this.list = result.model
+      },
+      response => {
+        console.log('请求失败')
+      }
+    )
   }
 }
 </script>

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@/components/home/home'
 import newlist from '@/components/news'
 import bookindex from '@/components/book'
+import booklist from '@/components/book/booklist'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +30,11 @@ export default new Router({
       path: '/book',
       name: 'book',
       component: bookindex
+    },
+    {
+      path: '/booklist',
+      name: 'booklist',
+      component: booklist
     }
   ]
 })

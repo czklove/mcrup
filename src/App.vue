@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- header-->
-    <app_head></app_head>
+    <app_head :searchkey='searchkey'></app_head>
     <!-- 路由加载页面 -->
     <div class="main">
       <router-view/>
@@ -20,7 +20,8 @@ export default {
   data () {
     return {
       queryName: 'vue',
-      repoUrl: ''
+      repoUrl: '',
+      searchkey: ''
     }
   },
   components: {

@@ -8,8 +8,8 @@
         <div class="col-xs-7">
           <div class="ser-box">
             <!--<label for="txt-ser"></label>-->
-            <input type="text" id="txt-ser" class="ser" name="txt-ser"/>
-            <span></span>
+            <input type="text" id="txt-ser" class="ser" name="txt-ser" v-model="keyword"/>
+            <span v-on:click='seach()'></span>
           </div>
         </div>
       </div>
@@ -19,10 +19,21 @@
 
 <script>
 export default {
+  props: ['searchkey'],
   name: '',
   data () {
     return {
-
+      keyword: this.searchkey
+    }
+  },
+  methods: {
+    seach () {
+      this.$router.push({// 核心语句
+        path: '/booklist', // 跳转的路径
+        query: { // 路由传参时push和query搭配使用 ，作用时传递参数
+          /* id: this.id */
+        }
+      })
     }
   }
 }

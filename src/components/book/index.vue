@@ -11,9 +11,9 @@
       </div>
       <bookclassfic></bookclassfic>
       <!--新书速递 -->
-      <itemlist :list="newlist" :mutilte="'新书速递'"></itemlist>
+      <itemlist :listtype="newtype" :mutilte="'新书速递'"></itemlist>
       <!-- 重磅力作-->
-      <itemlist :list="zblist" :mutilte="'重磅力作'"></itemlist>
+      <itemlist :listtype="zbtype" :mutilte="'重磅力作'"></itemlist>
     </div>
     <!-- 专题推荐-->
     <bookrec></bookrec>
@@ -24,42 +24,19 @@
 import bookrec from './bookrec.vue'
 import itemlist from './itemlist.vue'
 import bookclassfic from './bookclassfic.vue'
-import axios from 'axios'
 
 export default {
   name: '',
   data () {
     return {
-      newlist: [
-        {id: 1, name: '管理会计学', src: '../../../static/images/book-exp-1.png'},
-        {id: 2, name: '克鲁格曼经济学原理（经济科学译库）', src: '../../../static/images/book-exp-2.png'},
-        {id: 3, name: '中国法制史（第四版）', src: '../../../static/images/book-exp-3.png'}
-      ],
-      zblist: [
-        {id: 1, name: '亚里士多德全集', src: '../../../static/images/book-exp-4.png'},
-        {id: 2, name: '宏观经济学（第十二版）', src: '../../../static/images/book-exp-5.png'},
-        {id: 3, name: '佛学与儒学（修订版）', src: '../../../static/images/book-exp-6.png'}
-      ]
+      newtype: 18,
+      zbtype: 0
     }
   },
   components: {
     bookrec,
     itemlist,
     bookclassfic
-  },
-  created () {
-    // 使用vue-resource发送ajax请求
-    // 也可以使用axios发送ajax请求
-    const postData = {flag: 18, size: 3}
-    axios.get('/crup/Book/BookExpress', postData).then(
-      response => {
-        var result = response.data
-        console.log(result)
-      },
-      response => {
-        console.log('请求失败')
-      }
-    )
   }
 }
 </script>
