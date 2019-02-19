@@ -24,6 +24,8 @@
 import bookrec from './bookrec.vue'
 import itemlist from './itemlist.vue'
 import bookclassfic from './bookclassfic.vue'
+import axios from 'axios'
+
 export default {
   name: '',
   data () {
@@ -44,6 +46,20 @@ export default {
     bookrec,
     itemlist,
     bookclassfic
+  },
+  created () {
+    // 使用vue-resource发送ajax请求
+    // 也可以使用axios发送ajax请求
+    const postData = {flag: 18, size: 3}
+    axios.get('/crup/Book/BookExpress', postData).then(
+      response => {
+        var result = response.data
+        console.log(result)
+      },
+      response => {
+        console.log('请求失败')
+      }
+    )
   }
 }
 </script>

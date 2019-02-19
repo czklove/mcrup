@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <ul class="foot-box clearfix">
-      <router-link to="/home" class="home active" tag="li"><span>首页</span></router-link>
+      <router-link to="/home" class="home" tag="li"><span>首页</span></router-link>
       <router-link to="/book" class="book" tag="li"><span>图书</span></router-link>
       <router-link to="/teacher" class="teacher" tag="li"><span>服务</span></router-link>
       <li class="more" @click="showmore=!showmore">
