@@ -19,19 +19,19 @@
 
 <script>
 export default {
-  props: ['searchkey'],
   name: '',
   data () {
     return {
-      keyword: this.searchkey
+      keyword: this.$route.query.keyword
     }
   },
   methods: {
     seach () {
+      const keyword = this.keyword
       this.$router.push({// 核心语句
         path: '/booklist', // 跳转的路径
         query: { // 路由传参时push和query搭配使用 ，作用时传递参数
-          /* id: this.id */
+          keyword: keyword
         }
       })
     }

@@ -17,7 +17,7 @@
                         </div>
                         <div class="col-xs-8">
                             <div class="news-text">
-                                <a :href="'/Book/Detail?doi='+item.ID" :data-doi="item.ID">{{item.Name}}</a>
+                                <a :href="'/Book/Detail?doi='+item.ID" :data-doi="item.ID" v-html="item.Name"></a>
                                 <p>{{item.Digest}}</p>
                                 <p><span>{{item.Author}}</span><br><span>{{item.Date}}</span></p>
                             </div>
@@ -30,27 +30,75 @@
 </template>
 
 <script>
+import Vuedropload from 'vue-dropload'
+import Vue from 'vue'
 import axios from 'axios'
+Vue.use(Vuedropload)
 export default {
-  props: ['keyword'],
   data () {
-    return {list: []
+    return {
+      list: [],
+      page: 1
     }
   },
   created () {
-    // 使用vue-resource发送ajax请求
-    // 也可以使用axios发送ajax请求
-    const postdata = {Keywords: this.keyword, size: 10, Qualifications: '1.'}
-    axios.post('/api/Book/BindCourseList', postdata).then(
-      response => {
-        var result = response.data
-        this.list = result.model
-      },
-      response => {
-        console.log('请求失败')
+    console.log('11111111111')
+    loadResource(this)
+  },
+  mounted () {
+    console.log('ready ok')
+    Vue.Mdropload(
+      document.querySelector('#booklist'),
+      {
+        height: 50,
+        up: {
+          fn: function (cb) {
+            this.page = 1
+          },
+          template: {
+            none: '下拉刷新',
+            message: '释放更新',
+            loading: '正在更新，请稍后',
+            success: '刷新成功',
+            error: '刷新失败'
+          }
+        },
+        down: {
+          fn: function (cb) {
+            console.log('触发了上拉操作')
+            setTimeout(function () {
+              cb.success()
+            }, 5000)
+          },
+          template: {
+            none: '上拉刷新',
+            message: '释放更新',
+            loading: '正在更新，请稍后',
+            success: '刷新成功',
+            error: '刷新失败'
+          }
+        }
       }
     )
   }
+}
+// type为1 下拉更新，type为2 下拉加载
+function loadResource (_self, type) {
+  // 使用vue-resource发送ajax请求
+  // 也可以使用axios发送ajax请求
+  console.log(_self.$route.query.keyword)
+  const postdata = {Keywords: _self.$route.query.keyword, size: 10, Qualifications: '1.', page: _self.page}
+  axios.post('/api/Book/BindCourseList', postdata).then(
+    response => {
+      var result = response.data
+      console.log(result.model)
+      _self.list = _self.list.concat(result.model)
+      console.log(_self.list)
+    },
+    response => {
+      console.log('请求失败')
+    }
+  )
 }
 
 </script>
@@ -66,8 +114,9 @@ export default {
 .news-body ul li img{border-radius: 3px;-webkit-border-radius: 3px;-moz-border-radius: 3px;height:100%;width:100%;}
 #news .news-img {width:100%;}
 #newbook li img {width:100%;}
-.news-body .news-text a{font-size: 14px;margin-left: -15px;display: -webkit-box;-webkit-box-orient: vertical;max-height:4rem;line-height:2rem;overflow: hidden;}
+.news-body .news-text a{font-size: 14px;margin-left: -15px;display: -webkit-box;-webkit-box-orient: vertical;max-height:4rem;line-height:1.5rem;overflow: hidden;}
 .news-body .news-text a:hover{color: #ae0e16;}
 .news-body p{font-size: 12px;color: #b0b0b0;display: -webkit-box;margin-left: -15px;max-height: 6.5rem;overflow: hidden;line-height:1.6rem;}
 .news-body p span{color: #555555;margin-right: 10px;}
+.js-mdropload-up{width: 96%;}
 </style>

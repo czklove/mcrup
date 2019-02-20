@@ -4,11 +4,17 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    searchkey: ''
+    searchkey: '',
+    issearch: false
+  },
+  getters: {
+    searchkey (state) {
+      return state.searchkey
+    }
   },
   mutations: {
-    increment (state) {
-      this.searchkey = state
+    newkey (state, value) {
+      state.searchkey = value
     }
   }
 })
