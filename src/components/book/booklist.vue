@@ -9,6 +9,20 @@
             </div>
         </div>
         <div class="container">
+          <pullto :top-load-method="refresh" :bottom-load-method="butload" @top-state-change="topstateChange">
+             <template slot="top-block" slot-scope="props">
+              <div class="top-load-wrapper">
+                <svg class="icon"
+                    :class="{
+                        'icon-arrow': props.state === 'trigger',
+                        'icon-loading': props.state === 'loading'
+                    }"
+                    aria-hidden="true">
+                  <use :xlink:href="iconLink"></use>
+                </svg>
+                {{ props.stateText }}
+              </div>
+            </template>
             <ul id="booklist">
                 <li v-for="(item,index) in list" :key="index">
                     <div class="row" style="width: 375px;">
@@ -25,75 +39,73 @@
                     </div>
                 </li>
             </ul>
+          </pullto>
         </div>
   </div>
 </template>
 
 <script>
-import Vuedropload from 'vue-dropload'
+import pullto from 'vue-pull-to'
 import Vue from 'vue'
 import axios from 'axios'
-Vue.use(Vuedropload)
+Vue.use(pullto)
 export default {
   data () {
     return {
       list: [],
-      page: 1
+      page: 1,
+      iconLink: ''
     }
   },
+  components: {
+    pullto
+  },
   created () {
-    console.log('11111111111')
     loadResource(this)
   },
   mounted () {
-    console.log('ready ok')
-    Vue.Mdropload(
-      document.querySelector('#booklist'),
-      {
-        height: 50,
-        up: {
-          fn: function (cb) {
-            this.page = 1
-          },
-          template: {
-            none: '下拉刷新',
-            message: '释放更新',
-            loading: '正在更新，请稍后',
-            success: '刷新成功',
-            error: '刷新失败'
-          }
-        },
-        down: {
-          fn: function (cb) {
-            console.log('触发了上拉操作')
-            setTimeout(function () {
-              cb.success()
-            }, 5000)
-          },
-          template: {
-            none: '上拉刷新',
-            message: '释放更新',
-            loading: '正在更新，请稍后',
-            success: '刷新成功',
-            error: '刷新失败'
-          }
-        }
+  },
+  methods: {
+    refresh (loaded) {
+      this.page = 1
+      loadResource(this, 1)
+      loaded('done')
+    },
+    butload (loaded) {
+      this.page += 1
+      loadResource(this, 2)
+      loaded('done')
+    },
+    topstateChange (state) {
+      if (state === 'pull' || state === 'trigger') {
+        this.iconLink = '#icon-arrow-bottom'
+      } else if (state === 'loading') {
+        this.iconLink = '#icon-loading'
+      } else if (state === 'loaded-done') {
+        this.iconLink = '#icon-finish'
       }
-    )
+    }
   }
 }
 // type为1 下拉更新，type为2 下拉加载
 function loadResource (_self, type) {
   // 使用vue-resource发送ajax请求
   // 也可以使用axios发送ajax请求
-  console.log(_self.$route.query.keyword)
+  // console.log(_self.$route.query.keyword)
+  var keyword = _self.$route.query.keyword
+  if (!keyword) {
+    keyword = ''
+  }
   const postdata = {Keywords: _self.$route.query.keyword, size: 10, Qualifications: '1.', page: _self.page}
   axios.post('/api/Book/BindCourseList', postdata).then(
     response => {
       var result = response.data
-      console.log(result.model)
-      _self.list = _self.list.concat(result.model)
-      console.log(_self.list)
+      if (type !== 1) {
+        console.log(result.model)
+        _self.list = _self.list.concat(result.model)
+      } else {
+        _self.list = result.model
+      }
     },
     response => {
       console.log('请求失败')
@@ -116,7 +128,11 @@ function loadResource (_self, type) {
 #newbook li img {width:100%;}
 .news-body .news-text a{font-size: 14px;margin-left: -15px;display: -webkit-box;-webkit-box-orient: vertical;max-height:4rem;line-height:1.5rem;overflow: hidden;}
 .news-body .news-text a:hover{color: #ae0e16;}
-.news-body p{font-size: 12px;color: #b0b0b0;display: -webkit-box;margin-left: -15px;max-height: 6.5rem;overflow: hidden;line-height:1.6rem;}
-.news-body p span{color: #555555;margin-right: 10px;}
-.js-mdropload-up{width: 96%;}
+.news-body p{font-size: 12px;color: #b0b0b0;margin-left: -15px;max-height: 6.5rem;overflow: hidden;line-height:1.6rem;}
+.news-body p span{color: #555555;margin-right: 10px;}.js-mdropload-up{width: 96%;}.bottom-load-wrapper {line-height: 50px;text-align: center;}
+.top-load-wrapper {line-height: 50px;text-align: center;}
+.icon {width: 1em;height: 1em;vertical-align: -0.15em;fill: currentColor;overflow: hidden;}
+.icon-arrow {transition: .2s;transform: rotate(180deg);}
+.icon-loading {transform: rotate(0deg);animation-name: loading;animation-duration: 3s;animation-iteration-count: infinite;animation-direction: alternate;}
+@keyframes loading{from {transform: rotate(0deg);}to {transform: rotate(360deg);}}
 </style>
