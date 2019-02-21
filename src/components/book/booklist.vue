@@ -135,4 +135,5 @@ function loadResource (_self, type) {
 .icon-arrow {transition: .2s;transform: rotate(180deg);}
 .icon-loading {transform: rotate(0deg);animation-name: loading;animation-duration: 3s;animation-iteration-count: infinite;animation-direction: alternate;}
 @keyframes loading{from {transform: rotate(0deg);}to {transform: rotate(360deg);}}
+.vue-pull-to-wrapper{overflow: hidden;}
 </style>
